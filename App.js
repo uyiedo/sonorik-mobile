@@ -1,29 +1,29 @@
 import React from "react";
-import { View, StyleSheet, FlatList, Dimensions } from "react-native";
+import { View, StyleSheet, FlatList, Dimensions, Text } from "react-native";
 import { Video } from "expo-av";
 
 const { height, width } = Dimensions.get("window");
 
-// 👇 Demo video list
 const reels = [
-  { id: "1", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
-  { id: "2", url: "https://www.w3schools.com/html/movie.mp4" }
+  { id: "1", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
+  { id: "2", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
 ];
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>🎧 Sonorik</Text>
+
       <FlatList
         data={reels}
         pagingEnabled
-        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <Video
             source={{ uri: item.url }}
             style={styles.video}
             shouldPlay
             isLooping
-            resizeMode="cover"
+            useNativeControls
           />
         )}
         keyExtractor={(item) => item.id}
@@ -37,8 +37,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black"
   },
+  title: {
+    color: "white",
+    textAlign: "center",
+    marginTop: 40,
+    fontSize: 20
+  },
   video: {
     width: width,
-    height: height
+    height: height - 60
   }
 });
